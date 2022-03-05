@@ -4,19 +4,19 @@
     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.junefw.infra.modules.code.CodeMpp"> <!-- 지금 파일 위치 지정 -->
+<mapper namespace="com.junefw.infra.modules.dgmk.DgmkMpp"> <!-- 지금 파일 위치 지정 -->
 
-    <resultMap id="resultMapObj" type="com.junefw.infra.modules.code.Code"></resultMap> <!-- 결과 객체 지정 -->
+    <resultMap id="resultMapObj" type="com.junefw.infra.modules.dgmk.Dgmk"></resultMap> <!-- 결과 객체 지정 -->
 
-	<select id="selectList" resultMap="resultMapObj">
+	<!-- <select id="selectList" resultMap="resultMapObj"> -->
+	<select id="selectList" resultType="com.junefw.infra.modules.dgmk.Dgmk">
 		select
-			a.ifcgSeq
-			, a.ifcgName
-			, a.ifcgDelNy
-		FROM
-			bts.infrCodeGroup a
-		WHERE 1=1
-			AND ifcgDelNy = 0
+			dgpdSeq
+			, dgpdProduct
+			, dgpdPrice
+			, dgpdDelNy
+		from
+			dgmkProduct 
 	</select>
 <!-- 	
 	<insert id="insert">

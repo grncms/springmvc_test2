@@ -24,4 +24,8 @@ public class MemberDao {
 	public int insert(Member dto){ 
 		return sqlSession.insert(namespace + ".insert", dto);
 	}
+	
+	public int delete(Member dto) {
+		return sqlSession.insert(namespace + ".delete", dto);
+	}
 }

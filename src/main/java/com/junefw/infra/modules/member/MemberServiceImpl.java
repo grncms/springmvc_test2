@@ -20,4 +20,10 @@ public class MemberServiceImpl implements MemberService{
 	public int insert(Member dto) throws Exception {
 		return dao.insert(dto);
 	}
+
+	@Override
+	public int delete(Member dto) {
+		// TODO Auto-generated method stub
+		return dao.delete(dto);
+	}
 }

@@ -13,6 +13,8 @@
 				ifmmSeq
 				, ifmmId
 				, ifmmName
+				, ifmmPassword
+				, ifmmChildrenNum
 			from
 				infrMember
 	</select>
@@ -21,11 +23,20 @@
 			insert into infrMember (
 				ifmmId
 				,ifmmName
+				,ifmmPassword
+				,ifmmChildrenNum
 				,ifmmDelNy
 			) values (
 				#{ifmmId}
 				,#{ifmmName}
+				,#{ifmmPassword}
+				,#{ifmmChildrenNum	}
 				,0
 			)
 	</insert>
+	
+	<delete id="delete">
+		delete from infrMember 
+		where ifmmSeq = #{ifmmSeq} 
+	</delete>
 </mapper>

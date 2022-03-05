@@ -1,4 +1,4 @@
-package com.junefw.infra.modules.code;
+package com.junefw.infra.modules.dgmk;
 
 import java.util.List;
 
@@ -9,16 +9,16 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class CodeDao {
+public class DgmkDao {
 	
 	@Inject
 	@Resource(name = "sqlSession")
 	private SqlSession sqlSession;
 	
-	private static String namespace = "com.junefw.infra.modules.code.CodeMpp";
+	private static String namespace = "com.junefw.infra.modules.dgmk.DgmkMpp";
 
-	public  List<Code> selectList(){
-		return sqlSession.selectList(namespace + ".selectList", "");
+	public  List<Dgmk> selectList(){
+		return sqlSession.selectList(namespace + ".selectList");
 	}
 	
 	public int insert() {

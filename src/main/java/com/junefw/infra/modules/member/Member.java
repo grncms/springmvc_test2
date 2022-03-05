@@ -5,10 +5,24 @@
 		private String ifmmSeq = "";
 		private String ifmmId = "";
 		private String ifmmName= "";
+		private String ifmmPassword = "";
+		private String ifmmChildrenNum = "";
 		private Integer ifmmDelNy;
 	//------------
+		 @Override
+		public String toString() {
+			// TODO Auto-generated method stub
+			return this.ifmmId + this.ifmmName;
+		}
+		
 		public String getIfmmSeq() {
 			return ifmmSeq;
+		}
+		public String getIfmmPassword() {
+			return ifmmPassword;
+		}
+		public void setIfmmPassword(String ifmmPassword) {
+			this.ifmmPassword = ifmmPassword;
 		}
 		public void setIfmmSeq(String ifmmSeq) {
 			this.ifmmSeq = ifmmSeq;
@@ -32,4 +46,13 @@
 			this.ifmmDelNy = ifmmDelNy;
 		}
 
+		public String getIfmmChildrenNum() {
+			return ifmmChildrenNum;
+		}
+
+		public void setIfmmChildrenNum(String ifmmChildrenNum) {
+			this.ifmmChildrenNum = ifmmChildrenNum;
+		}
+		
+		
 	}

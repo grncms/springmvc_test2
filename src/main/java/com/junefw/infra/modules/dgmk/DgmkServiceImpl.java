@@ -1,4 +1,4 @@
-package com.junefw.infra.modules.code;
+package com.junefw.infra.modules.dgmk;
 
 import java.util.List;
 
@@ -6,13 +6,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class CodeServiceImpl implements CodeService{
+public class DgmkServiceImpl implements DgmkService{
 
 	@Autowired
-	CodeDao dao;
+	DgmkDao dao;
 	
 	@Override
-	public List<Code> selectList() throws Exception {
+	public List<Dgmk> selectList() throws Exception {
 		return dao.selectList(); 
 	}
 
