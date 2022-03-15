@@ -22,6 +22,27 @@ public class CodeServiceImpl implements CodeService{
 		return 0;
 	}
 
+	public void update(Code dto) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public Code selectOne(Code dto) {
+		// TODO Auto-generated method stub
+		return dao.selectOne(dto);
+	}
+
+	public int selectOneCount(Code vo) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	public List<Code> selectList(Code vo) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 	
 	
 	

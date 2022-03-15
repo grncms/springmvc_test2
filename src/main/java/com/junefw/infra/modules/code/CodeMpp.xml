@@ -8,6 +8,30 @@
 
     <resultMap id="resultMapObj" type="com.junefw.infra.modules.code.Code"></resultMap> <!-- 결과 객체 지정 -->
 
+	<!-- infrCodeGroup -->
+	
+	<sql id="selectCommon">
+		FROM
+			infrCodeGroup 
+		WHERE 1=1
+			<choose>
+				<when test="shIfcgDelNy == 1">AND a.ifcgDelNy = 1</when>
+				<when test="shIfcgDelNy == 0">AND a.ifcgDelNy = 0</when>
+			</choose>
+			<if test="shIfcgName !-null and !shIfcgName.equals('')"> AND a.ifcgName LIKE concat('%',#{shIfcgName},'%')</if>
+			<choose>
+				<when test="shOption == 1">AND a.ifcgName LIKE concat('%',#{shValue},'%')</when>
+				<when test="shOption == 2">AND a.ifcgNameEng LIKE concat('%',#{shValue},'%')</when>
+			</choose>
+	</sql>
+	
+	<select id="selectOIneCount" resultType="Integer">
+		SELECT
+			count(*)
+		<include refid="selectCommon" />
+	</select>
+	
+	
 	<select id="selectList" resultMap="resultMapObj">
 		select
 			a.ifcgSeq
@@ -18,7 +42,7 @@
 		WHERE 1=1
 			AND ifcgDelNy = 0
 	</select>
-<!-- 	
+	
 	<insert id="insert">
 			insert into infrCodeGroup (
 				ifcgName
@@ -39,6 +63,53 @@
 		where 1=1
 			and ifcgDelNy = 0
 			and ifcgSeq = #{ifcgSeq}
+	</select>
+	
+	<update id="update">
+			UPDATE
+				infrcodegroup
+			SET 
+				ifcgName = #{ifcgName}
+			WHERE 1=1
+				AND ifcgSeq = #{ifcgSeq}
+	</update>
+	
+<!-- 	<select id="selectList" resultMap="resultMapObj">
+		SELECT
+			a.ifcgSeq
+			, a.ifcgName
+			, a.ifcgNameENg
+			, a.ifcgDelNy
+		FROM
+			infrCodeGroup a
+		WHERE 1=1
+
 	</select> -->
+	
+	
+	
+	
+	
+	
+	<!-- infrCodeGroup -->
+	<select id="selectLIst" resultMap="resultMapObj">
+		SELECT
+			a.ifcgSeq
+			, a.ifcgName
+			, a.ifcgNameEng
+			, a.ifcgDelNy
+		FROM
+			infrCodeGroup a
+		WHERE 1=1
+			<choose>
+				<when test="shIfcDelNy == 1">AND a.ifcgDelNy = 1</when>
+				<when test="shIfcDelNy == 0">AND a.ifcgDelNy = 0</when>
+			</choose>
+			<if test="shIfcgName != null and !shIfcgName.equals('')">AND a.ifcgName LIKE concat('%',#{shIfcgName},'%')</if>
+			<choose>
+				<when test="shOption == 1">AND a.ifcgName LIKE concat('%',#{shValue},'%') = 1</when>
+				<when test="shOption == 2">AND a.ifcgNameEng LIKE concat('%',#{shValue},'%') = 1</when>
+			</choose>
+	</select>
 	
 </mapper>

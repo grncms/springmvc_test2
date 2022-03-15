@@ -34,10 +34,10 @@ public class MemberController {
 		 * item.getIfmmName()); }
 		 */
 		
-		
-
 		return "member/memberList";
 	}
+	
+	
 
 	@RequestMapping(value = "/member/memberForm")
 	public String memberForm(Model model) throws Exception {

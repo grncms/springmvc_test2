@@ -6,4 +6,5 @@ public interface CodeService {
 	
 	public List<Code> selectList() throws Exception; 
 	public int insert(); 
+	public Code selectOne(Code dto);
 }
