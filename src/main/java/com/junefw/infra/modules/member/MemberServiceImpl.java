@@ -12,8 +12,8 @@ public class MemberServiceImpl implements MemberService{
 	MemberDao dao;
 	
 	@Override
-	public List<Member> selectList() throws Exception {
-		return dao.selectList(); 
+	public List<Member> selectList(MemberVo vo) throws Exception {
+		return dao.selectList(vo); 
 	}
 
 	@Override
@@ -26,4 +26,11 @@ public class MemberServiceImpl implements MemberService{
 		// TODO Auto-generated method stub
 		return dao.delete(dto);
 	}
+
+	@Override
+	public Member selectOne(MemberVo vo) throws Exception {
+		return dao.selectOne(vo);
+	}
+
+	
 }

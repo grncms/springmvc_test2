@@ -78,6 +78,14 @@
 		public void setStartRnumForMysql(Integer startRnumForMysql) {
 			this.startRnumForMysql = startRnumForMysql;
 		}
+		public String getThisPage() {
+			// TODO Auto-generated method stub
+			return null;
+		}
+		public String getShVaule() {
+			// TODO Auto-generated method stub
+			return null;
+		}
 		
 		
 		

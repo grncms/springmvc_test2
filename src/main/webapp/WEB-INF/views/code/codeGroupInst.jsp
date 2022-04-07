@@ -7,6 +7,6 @@
 
 
 <form method="post" action="/infra/code/codeGroupList">
-	<input type="text" name="ifcgName" placeholder="업데이트" value="<c:out value="${rt.ifcgName}"/>">
-	<input type="submit" value ="업데이트"> 
-</form>	
+	<input type="text" name="ifcgName" placeholder="아이디" value="<c:out value="${rt.ifcgName}"/>">
+	<input type="submit" value ="제출"> 
+</form>

@@ -12,14 +12,12 @@
 	integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
 	crossorigin="anonymous">
 
-<from id="formList" name="formList" method="get" action="/infra/code/codeGroupList">
-	<input type="hidden" id="thisPage" name="thisPage" value="<c:out value ="${vo.thisPage }" default="1"/>">
-	<input type="hidden" id="ifcgSeq" name="ifcgSeq">
+<from id="" name="" method="get" action="/infra/code/codeList">
 
 <select name="shIfcgDelNy">
 	<option value="">::삭제여부::
-	<option value="1" <c:if test="${vo.shIfcgDelNy eq 1 }">selected</c:if>>Y
-	<option value="0" <c:if test="${vo.shIfcgDelNy eq 0 }">selected</c:if>>N
+	<option value="1">Y
+	<option value="0">N
 </select>
 ||
 회원이름 : <input type="text" name="shIfcgName" id="shIfcgName">
@@ -46,7 +44,7 @@
 		<c:forEach items="${list}" var="item" varStatus="status">
 
 
-			<c:out value="${item.ifcgSeq}"/> |  <%-- <a href="javascript:goForm(<c:out value=${item.ifcgSeq}"><c:out value="${item.ifcgName}" /></a> --%> <a href="/infra/code/codeGroupView?ifcgSeq=${item.ifcgSeq}"><c:out value="${item.ifcgName}" /></a> | <c:out value="${item.ifcgDelNy}" />
+			<c:out value="${item.ifcgSeq}"/> |  <a href="/infra/code/codeGroupView?ifcgSeq=${item.ifcgSeq}"><c:out value="${item.ifcgName}" /></a> | <c:out value="${item.ifcgDelNy}" />
 		<%-- 위에있는 seq 소괄호	뒤에 붙일거	&shOption=<c:out value="${vo.shOption }"/>&shValue=<c:out value="${vo.shValue }"/> --%>
 			<br>
 
@@ -113,7 +111,7 @@
 
 
 
-<c:if test="${vo.startPage gt vo.pageNumToShow}">
+<%-- <c:if test="${vo.startPage gt vo.pageNumToShow}">
                 <li class="page-item"><a class="page-link" href="/infra/code/codeGroupList?thisPage=${vo.startPage - 1}">Previous</a></li>
 </c:if>
 <c:forEach begin="${vo.startPage}" end="${vo.endPage}" varStatus="i">
@@ -129,7 +127,7 @@
 <c:if test="${vo.endPage ne vo.totalPages}">                
                 <li class="page-item"><a class="page-link" href="/infra/code/codeGroupList?thisPage=${vo.endPage + 1}">Next</a></li>
 </c:if>  
-
+ --%>
 
 
 

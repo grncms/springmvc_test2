@@ -27,3 +27,6 @@ public class CodeDao {
 		return sqlSession.selectOne(namespace + ".selectOne", dto);
 	}
 }
+
+//public int updateDelete(CodeVo vo) {return sqlSession.updateDelete(namespace + ".update")}
+//public int updateDelet(CodeVo vo) { return sqlSession.update(namespace + ".updateDelete", vo); }

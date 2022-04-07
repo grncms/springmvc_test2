@@ -6,37 +6,77 @@
 
 <mapper namespace="com.junefw.infra.modules.member.MemberMpp">
 
-    <resultMap id="resultMapObj" type="com.junefw.infra.modules.member.Member"></resultMap>
+	<resultMap id="resultMapObj"
+		type="com.junefw.infra.modules.member.Member"></resultMap>
+
+	<!-- <select id="selectList" resultMap="resultMapObj"> select ifmmSeq , 
+		ifmmId , ifmmName , ifmmPassword , ifmmChildrenNum from infrMember </select> -->
+
 
 	<select id="selectList" resultMap="resultMapObj">
-			select
-				ifmmSeq
-				, ifmmId
-				, ifmmName
-				, ifmmPassword
-				, ifmmChildrenNum
-			from
-				infrMember
+		SELECT
+		a.ifmmSeq
+		, a.ifmmId
+		, a.ifmmName
+		, ifmmPassword
+		, ifmmChildrenNum
+		, a.ifmmDelNy
+		FROM
+		infrMember a
+		WHERE 1=1
+		<choose>
+			<when test="shIfmmDelNy == 1">AND a.ifmmDelNy = 1</when>
+			<when test="shIfmmDelNy == 0">AND a.ifmmDelNy = 0</when>
+		</choose>
+		<!-- <if test="shIfmmName != null and !shIfmmName.equals('')">AND a.ifmmName LIKE concat('%',#{shIfmmName},'%')</if> -->
+		<choose>
+			<when test="shOption == 0">AND a.ifmmName LIKE concat('%',#{shIfmmName},'%') = 1
+			</when>
+			<when test="shOption == 1">AND a.ifmmId LIKE concat('%',#{shIfmmName},'%') 	= 1
+			</when>
+			<when test="shOption == 2">AND a.ifmmId LIKE concat('%',#{shIfmmName},'%') OR a.ifmmName LIKE concat('%',#{shIfmmName},'%')
+			</when>
+			<!-- <when test="shOption == 1">AND a.ifmmName LIKE concat('%',#{shValue},'%') = 1
+			</when>
+			<when test="shOption == 2">AND a.ifmmId LIKE concat('%',#{shValue},'%') = 1
+			</when> -->
+			
+		</choose>
 	</select>
-	
+
+	<select id="selectView" resultMap="resultMapObj">
+		SELECT
+		ifmmSeq
+		, ifmmId
+		, ifmmName
+		, ifmmPassword
+		FROM
+		infrMember
+		WHERE 1=1
+		AND ifmmSeq = #{ifmmSeq}
+	</select>
+
 	<insert id="insert">
-			insert into infrMember (
-				ifmmId
-				,ifmmName
-				,ifmmPassword
-				,ifmmChildrenNum
-				,ifmmDelNy
-			) values (
-				#{ifmmId}
-				,#{ifmmName}
-				,#{ifmmPassword}
-				,#{ifmmChildrenNum	}
-				,0
-			)
+		insert into infrMember (
+		ifmmId
+		,ifmmName
+		,ifmmPassword
+		,ifmmChildrenNum
+		,ifmmDelNy
+		) values (
+		#{ifmmId}
+		,#{ifmmName}
+		,#{ifmmPassword}
+		,#{ifmmChildrenNum }
+		,0
+		)
 	</insert>
-	
+
+
+
 	<delete id="delete">
-		delete from infrMember 
-		where ifmmSeq = #{ifmmSeq} 
+		delete from infrMember
+		where ifmmSeq = #{ifmmSeq}
 	</delete>
+
 </mapper>

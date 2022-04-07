@@ -10,3 +10,12 @@
 	<input type="text" name="ifcgName" placeholder="아이디" value="<c:out value="${rt.ifcgName}"/>">
 	<input type="submit" value ="제출"> 
 </form>
+
+<form id="form" method="post" action="/infra/code/codeGroupInst">
+	<input type="hidden" name="thisPage" value="<c:out value="${vo.thisPage }"/>">
+	<input type="hidden" name="shOption" value="<c:out value="${vo.shOption }"/>">
+	<input type="hidden" name="shValue" value="<c:out value="${vo.shValue }"/>">
+	<input type="hidden" name="">
+	<input type="text" id="ifcgName" name="ifcgName" placeholder="코드그룹">
+	<input type="submit" id="btnSubmit" value="제출">
+</form>

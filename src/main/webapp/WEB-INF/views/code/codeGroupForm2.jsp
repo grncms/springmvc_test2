@@ -9,5 +9,9 @@
 <form method="post" action="/infra/code/codeGroupList">
 	<input type="text" name="ifcgName" placeholder="아이디" value="<c:out value="${rt.ifcgName}"/>">
 	<input type="submit" value ="제출"> 
+	
+	<input type="text" name="ifcgName" placeholder="영어아이디" value="<c:out value="${rt.ifcgNameEng}"/>">
+	<input type="submit" value ="제출duddj"> 
+	
 </form>
 

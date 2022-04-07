@@ -5,14 +5,17 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 public class CodeController {
 
 //	paging
 	private int thisPage = 1;									// 현재 페이지
-	private int rowNumToShow = 10;								// 화면에 보여줄 데이터 줄 갯수
+	private int rowNumToShow = 1;								// 화면에 보여줄 데이터 줄 갯수
 	private int pageNumToShow = 5;								// 화면에 보여줄 페이징 번호 갯수
 
 	private int totalRows;										// 전체 데이터 갯수
@@ -28,8 +31,8 @@ public class CodeController {
 	
 //	infrCodeGroup
 	
-	@RequestMapping(value = "/code/codeGroupList")
-	public String codeGroupList(Code vo, Model model) throws Exception {
+	@RequestMapping(value = "/code/codeGroupList", method = RequestMethod.GET)
+	public String codeGroupList(/* @ModelAttribute("vo") */ Code vo, Model model) throws Exception {
 		
 		// count 가져올 것
 		int count = service.selectOneCount(vo);
@@ -44,6 +47,29 @@ public class CodeController {
 		}
 		return "code/codeGroupList";
 	}
+	
+//	@RequestMapping(value = "/code/codeGroupList")
+//	public String codeGroupList(Model model) throws Exception {
+//
+//		// count 가져올것
+//		int count = service.selectOneCount(vo);
+//		
+//		if(count != 0) {
+//			List<Code> list = service.selectList(vo);
+//			model.addAttribute("list",list);
+//		} else {
+//			//by pass
+//		}
+//		// count 가 0이 아니면 list 가져오는 부분 수행 후 model 개체에 담기
+//
+//		List<Code> list = service.selectList();
+//		model.addAttribute("list", list);
+//
+//		return "code/codeGroupList";
+//
+//	}
+	
+	
 	
 	public void setParamsPaging(int totalRowsParam) {
 		
@@ -96,50 +122,82 @@ public class CodeController {
 	CodeServiceImpl service;
 	private Code vo;
 
-	@RequestMapping(value = "/code/codeGroupList")
-	public String codeGroupList(Model model) throws Exception {
 
-		// count 가져올것
-		int count = service.selectOneCount(vo);
-		
-		if(count != 0) {
-			List<Code> list = service.selectList(vo);
-			model.addAttribute("list",list);
-		} else {
-			//by pass
-		}
-		// count 가 0이 아니면 list 가져오는 부분 수행 후 model 개체에 담기
-
-		List<Code> list = service.selectList();
-		model.addAttribute("list", list);
-
-		return "code/codeGroupList";
-
-	}
 
 	@RequestMapping(value = "/code/codeGroupForm")
-	public String codeGroupForm(Model model) throws Exception {
+	public String codeGroupForm(@ModelAttribute("vo") CodeVo vo) throws Exception {
 
-		List<Code> list = service.selectList();
-		model.addAttribute("list", list);
+//		List<Code> list = service.selectList();
+//		model.addAttribute("list", list);
 
 		return "code/codeGroupForm";
 
 	}
+	
+	@RequestMapping(value = "/code/codeGroupForm2")
+	public String codeGroupForm(Code dto) throws Exception {
+		
+//		List<Code> list = service.selectList();
+//		model.addAttribute("list", list);
+		
+		return "code/codeGroupForm2";
+		
+	}
 
-//	@RequestMapping(value = "/code/codeInst")
-//	public String codeInst(Model model) throws Exception{
-//		
-//		service.insertCode(dto);
-//		
-//		return "";
-//		
-//	}
+	@RequestMapping(value = "/code/codeGroupInst")
+	public String codeGroupInst(Code dto, CodeVo vo, RedirectAttributes redirectAttributes) throws Exception{
 
+		System.out.println("dto.getIfcgSeq(): " + dto.getIfcgSeq());	// null
+		
+		service.insert(dto);
+		
+		System.out.println("dto.getIfcgSeq(): " + dto.getIfcgSeq());	// 26
+		
+		redirectAttributes.addAttribute("ifcgSeq", dto.getIfcgSeq());
+		redirectAttributes.addAttribute("thisPage", dto.getIfcgSeq());
+		redirectAttributes.addAttribute("shOption", dto.getIfcgSeq());
+		redirectAttributes.addAttribute("shValue", dto.getIfcgSeq());
+		
+		return "redirect:/code/codeGroupView";
+
+//		return "redirect:/code/codeGroupView?ifcgSeq=" + dto.getIfcgSeq() + makeQueryString(vo);
+	}
+
+	public String makeQueryString(CodeVo vo) {
+		String tmp = "&thisPage=" + vo.getThisPage()
+						+ "&shOption=" + vo.getShOption()
+						+ "&shValue=" + vo.getShValue();
+		return tmp;
+	}
+	
+	@RequestMapping(value = "/code/codeGroupView")
+	public String codeGroupView(@ModelAttribute("vo") CodeVo vo, Model model) throws Exception {
+		// System.out.println("테스트입니다 " + dto.getIfcgSeq());
+//		Code detail = service.selectOne(dto);
+		// System.out.println("받아왔습니다 : " + dto.getIfcgName());
+
+		
+		System.out.println("vo.getShOption() : " + vo.getShOption());
+		System.out.println("vo.getShValue() : " + vo.getShVaule());
+		System.out.println("vo.getThisPage() : " + vo.getThisPage());
+		
+		
+//		db까지 가서 한 건의 데이터값을 가져온다. VO
+		Code rt = service.selectOne(vo);
+		
+		// 가지고 온 값을 jsp로 넘겨준다
+		model.addAttribute("item", rt);
+		
+		return "code/codeGroupView";
+	}
+	
+	
 	@RequestMapping(value = "/code/codeView")
 	public String codeViewx(Model model) throws Exception {
-
+		// 디비까지 가서 한 건의 데이터 값을 가지고 온다. VO
 		List<Code> list = service.selectList();
+		
+		// 가지고 온 값을 jsp로 넘겨준다.
 		model.addAttribute("list", list);
 
 		return "code/codeGroupForm";
@@ -154,16 +212,20 @@ public class CodeController {
 		return "code/codeGroupUpdt";
 	}
 
-	@RequestMapping(value = "/code/codeGroupView")
-	public String codeGroupView(Code dto, Model model) throws Exception {
-		// System.out.println("테스트입니다 " + dto.getIfcgSeq());
-		Code detail = service.selectOne(dto);
-		// System.out.println("받아왔습니다 : " + dto.getIfcgName());
 
-		model.addAttribute("memberDetail", detail);
-		return "code/codeGroupView";
-	}
-	
-	
+	@RequestMapping(value = "/code/codeGroupDele")
+	public String codeGroupDele(CodeVo vo, RedirectAttributes redirectAttributes) throws Exception {
+		
+		service.delete(vo);
+		
+		redirectAttributes.addAttribute("thisPage", vo.getThisPage());	
+		redirectAttributes.addAttribute("shOption", vo.getShOption());	
+		redirectAttributes.addAttribute("shValue", vo.getShValue());	
+		
+		return "redirect:/code/codeGroupList";
+		}
 
 }
+
+
+	

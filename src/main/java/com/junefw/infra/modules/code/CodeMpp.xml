@@ -40,7 +40,7 @@
 		FROM
 			bts.infrCodeGroup a
 		WHERE 1=1
-			AND ifcgDelNy = 0
+			AND ifcgSeq = #{ifgeSeq}
 	</select>
 	
 	<insert id="insert">
@@ -73,6 +73,19 @@
 			WHERE 1=1
 				AND ifcgSeq = #{ifcgSeq}
 	</update>
+
+	<delete id="delete">
+			DELETE
+				infrcodegroup
+			SET 
+				ifcgDelNy = #{ifcgName}
+			WHERE 1=1
+				AND ifcgSeq = #{ifcgSeq}
+	</delete>
+	
+	
+	
+	
 	
 <!-- 	<select id="selectList" resultMap="resultMapObj">
 		SELECT
